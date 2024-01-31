@@ -1,36 +1,27 @@
 #include "main.h"
 
 /**
- * handle_flags - Check for flag modifiers in the format string
- * and activate corresponding flags.
- * @s: Flag specifier character.
- * @f: Pointer to flags structure for activation.
- *
- * Return: 1 if a flag is found and activated, else 0.
- */
+* handle_flags - Check for flag modifiers in the format string
+* and activate corresponding flags.
+* @p: pointer Flag specifier character.
+* @flags: Pointer to flags structure for activation.
+*
+*/
 
 
-int handle_flags(char s, flags_t *f)
+void handle_flags(const char **p, flags_t *flags)
 {
-	int i = 0;
-
-	switch (s)
+	while (**p == '0' || **p == '-' || **p == '+' || **p == ' ')
 	{
-		case '+':
-			f->plus = 1;
-			i = 1;
-			break;
+		if (**p == '0')
+			flags->zero = 1;
+		else if (**p == '-')
+			flags->minus = 1;
+		else if (**p == '+')
+			flags->plus = 1;
+		else if (**p == ' ')
+			flags->space = 1;
 
-		case ' ':
-			f->space = 1;
-			i = 1;
-			break;
-
-		case '#':
-			f->hash = 1;
-			i = 1;
-			break;
+		(*p)++;
 	}
-	return (i);
 }
-
